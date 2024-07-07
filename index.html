@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Guesser</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body class="light-mode">
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+    <div class="menu" id="menu">
+        <button class="menu-close" id="menu-close">×</button>
+        <h2>Game Options</h2>
+        <div class="menu-option">
+            <label>Difficulty:</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+        <!--<div class="menu-option">
+            <label>Location Types:</label>
+            <div>
+                <input type="checkbox" id="cities" checked>
+                <label for="cities">Cities</label>
+            </div>
+            <div>
+                <input type="checkbox" id="landmarks" checked>
+                <label for="landmarks">Landmarks</label>
+            </div>
+            <div>
+                <input type="checkbox" id="natural-wonders" checked>
+                <label for="natural-wonders">Natural Wonders</label>
+            </div>
+        </div>-->
+    </div>
+    <div id="game-container">
+        <button id="mode-toggle">🌓</button>
+        <h1>Location Guesser</h1>
+        <div class="input-group">
+            <input type="text" id="guess-input" placeholder="Enter your guess">
+            <button id="submit-guess">Submit</button>
+        </div>
+        <p id="feedback"></p>
+        <p id="hint"></p>
+        <div id="map"></div>
+        <button id="next-location">Next Location</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

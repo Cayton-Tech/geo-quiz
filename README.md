@@ -33,4 +33,4 @@ World Location Guesser is an interactive web-based game that challenges players 
 - Mobile app version
 
 ## Feedback
-This project is in active development, and we welcome any feedback or suggestions. Please feel free to open an issue or submit a pull request.
+This project is in active development, and we welcome any feedback or suggestions.

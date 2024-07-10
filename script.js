@@ -1264,6 +1264,15 @@ const locationData = [
 
 let map;
 let currentMarker;
+let rotationInterval;
+
+function startMapRotation() {
+    let longitude = 0;
+    rotationInterval = setInterval(() => {
+        longitude = (longitude + 1) % 360;
+        map.setView([0, longitude], 2, { animate: false });
+    }, 100);
+}
 
 function initMap() {
     if (!map) {
@@ -1276,7 +1285,32 @@ function initMap() {
             maxZoom: 19,
             minZoom: 2
         }).addTo(map);
+
+        startMapRotation();
     }
+}
+
+function smoothZoomTo(coordinates) {
+    clearInterval(rotationInterval);
+    
+    // First, fly to the general area
+    map.flyTo(coordinates, 5, {
+        duration: 2  // Duration in seconds
+    });
+
+    // Then, after the fly animation is complete, zoom in closer and add the marker
+    setTimeout(() => {
+        map.flyTo(coordinates, 8, {
+            duration: 1
+        });
+        
+        setTimeout(() => {
+            if (currentMarker) {
+                map.removeLayer(currentMarker);
+            }
+            currentMarker = L.marker(coordinates).addTo(map);
+        }, 1000);
+    }, 2000);
 }
 
 function updateMap(coordinates) {
@@ -1284,13 +1318,7 @@ function updateMap(coordinates) {
         initMap();
     }
     
-    map.setView(coordinates, 10);
-    
-    if (currentMarker) {
-        map.removeLayer(currentMarker);
-    }
-    
-    currentMarker = L.marker(coordinates).addTo(map);
+    smoothZoomTo(coordinates);
 }
 
 function resetMap() {
@@ -1299,6 +1327,7 @@ function resetMap() {
         if (currentMarker) {
             map.removeLayer(currentMarker);
         }
+        startMapRotation();
     }
 }
 
@@ -1448,6 +1477,7 @@ document.addEventListener('DOMContentLoaded', () => {
         game.selectRandomLocation();
         submitButton.style.display = 'block';
         nextLocationButton.style.display = 'none';
+        resetMap(); // Reset the map to its initial rotating state
         updateUI(); // This will display the initial hint
     });
 

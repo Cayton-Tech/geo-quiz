@@ -8,6 +8,7 @@
   <style>
     :root{--ink:#102b3b;--muted:#667983;--paper:#f7f3e8;--card:#fffdf7;--line:#d7ddd7;--navy:#0e2433;--blue:#247ba0;--orange:#f28f3b;--green:#3a8d68;--red:#c94c4c;--shadow:0 18px 60px rgba(14,36,51,.14);--player:#247ba0}
     *{box-sizing:border-box}
+    [hidden]{display:none!important}
     html{background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
     body{margin:0;min-height:100svh;background:radial-gradient(circle at 10% 0%,rgba(242,143,59,.12),transparent 30rem),radial-gradient(circle at 100% 80%,rgba(58,141,104,.12),transparent 32rem),var(--paper);overflow-x:hidden}
     button,input,select{font:inherit}
@@ -303,7 +304,7 @@
   $('guessBtn').addEventListener('click',()=>{const value=$('guessInput').value.trim();if(value)submitGuess(value)});$('guessInput').addEventListener('keydown',(event)=>{if(event.key==='Enter')$('guessBtn').click()});
   $('choiceAnswer').addEventListener('click',(event)=>{const button=event.target.closest('.choice');if(button&&!button.disabled)submitGuess(button.dataset.answer,button)});$('clueBtn').addEventListener('click',revealClue);$('giveUpBtn').addEventListener('click',()=>finishRound(false));$('nextBtn').addEventListener('click',nextRound);
   $('copyResult').addEventListener('click',()=>copyText(resultText()));$('replayBtn').addEventListener('click',startGame);$('newBtn').addEventListener('click',goHome);
-  $('playerName').value=localStorage.getItem('geoquiz-name')||'';$('playerName').addEventListener('change',()=>localStorage.setItem('geoquiz-name',$('playerName').value));
+  try{$('playerName').value=localStorage.getItem('geoquiz-name')||'';$('playerName').addEventListener('change',()=>localStorage.setItem('geoquiz-name',$('playerName').value))}catch(error){/* File origins may disable storage; the game remains fully functional. */}
   updatePool();
   window.__geoQuizTest={LOCATIONS,encodeChallenge,decodeChallenge,createDeck,eligible,normalize,isCorrectGuess,MAP_PATH_SOURCE,OPTIONS};
   </script>
